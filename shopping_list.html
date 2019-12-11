@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Shopping List </title>
+</head>
+<body>
+	<div class="col">
+		<h1>Ajouter un item</h1>
+		<input type="text" id="produit" placeholder="Nom du produit" /><br/>
+		<input type="number" id="nombre" placeholder="Nombre d'articles" /><br/>
+		<input type="number" id="prix" placeholder="Prix" /><br/>
+		<button onclick="ajouterTab()">Ajouter</button>
+		<span id="erreur"></span>
+	</div>
+	<div class="col">
+		<h1>Liste</h1>
+		<p>Prix total : <span id="total"></span></p>
+		<ul id="liste"></ul>
+	</div>
+</body>
+<script type="text/javascript">
+	var liste = [];
+	var displayListe = document.getElementById("liste");
+
+	var total = 0;
+
+	function supprimer(id){
+		liste.splice(id, 1);
+		affiche();
+	}
+	
+	function affiche(){
+		displayListe.innerHTML = "";
+		total = 0;
+		for (var i=0; i<liste.length; i++){
+			displayListe.innerHTML += "<li><b>" + liste[i][0] + "</b> - Nombre: " + liste[i][1] + " - Prix: " + liste[i][2] + "<button onclick ='supprimer("+i+")'>Supprimer</button> " +"</li>";
+			total += parseFloat(liste[i][2]);
+		}
+		document.getElementById("total").innerHTML = total;
+	}
+
+	function ajouterTab(){
+		var produit = document.getElementById("produit").value;
+		var nombre = document.getElementById("nombre").value;
+		var prix = document.getElementById("prix").value;
+		
+		liste.push([produit, nombre, prix]);
+		
+		affiche();
+
+	}
+</script>
+
+<style type="text/css">
+	.col{
+		width: 50%;
+		height: 100vh;
+		float: left;
+	}
+</style>
+</html> 
